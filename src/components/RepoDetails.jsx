@@ -9,7 +9,7 @@ const RepoDetails = ({ repo }) => {
           {repo.visibility}
         </span>
       </div>
-      <div className="mid-one w-80 text-slate-100">
+      <div className="mid-one  truncate text-slate-100">
         <p>{repo.subtitle}</p>
       </div>
       <div className="mid-two flex gap-10 text-slate-300">
