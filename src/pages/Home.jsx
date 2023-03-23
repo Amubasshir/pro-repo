@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import RepoDetails from '../components/RepoDetails';
 
 const Home = () => {
   const [repos, setRepos] = useState([]);
@@ -23,9 +24,15 @@ const Home = () => {
     getRepos();
   }, []);
   return (
-    <div className="home py-30 container mx-auto bg-red-300">
-      <div className="left">
-        <h2 className="text-6xl font-medium text-red-700">All projects</h2>
+    <div className="home grid-col container mx-auto grid py-20">
+      <div className="left col-span-2">
+        <h2 className="mb-10 text-4xl font-medium text-sky-400">
+          All projects
+        </h2>
+        <div className="repos-wrapper flex flex-wrap gap-10">
+          {repos &&
+            repos.map((repo) => <RepoDetails key={repo._id} repo={repo} />)}
+        </div>
       </div>
       <div className="right"></div>
     </div>
