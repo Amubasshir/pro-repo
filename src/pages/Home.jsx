@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import RepoDetails from '../components/RepoDetails';
+import RepoForm from '../components/RepoForm';
 
 const Home = () => {
   const [repos, setRepos] = useState([]);
@@ -15,7 +16,6 @@ const Home = () => {
         const data = await res.json();
         setRepos(data);
         setLoading(false);
-        console.log(data);
       } catch (err) {
         setError(err.message);
         setLoading(false);
@@ -24,17 +24,17 @@ const Home = () => {
     getRepos();
   }, []);
   return (
-    <div className="home grid-col container mx-auto grid py-20">
+    <div className="home container mx-auto grid min-h-fit  grid-cols-3 gap-8 py-5 ">
       <div className="left col-span-2">
         <h2 className="mb-10 text-4xl font-medium text-sky-400">
-          All projects
+          All Repository
         </h2>
         <div className="repos-wrapper flex flex-wrap gap-10">
           {repos &&
             repos.map((repo) => <RepoDetails key={repo._id} repo={repo} />)}
         </div>
       </div>
-      <div className="right"></div>
+      <RepoForm />
     </div>
   );
 };
