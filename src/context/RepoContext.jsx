@@ -19,6 +19,11 @@ export const repoReducer = (state, action) => {
     default:
       return state;
     // case 'DELETE_REPO':
+    case 'DELETE_REPO':
+      return {
+        ...state,
+        repos: state.repos.filter((repo) => repo._id !== action.payload._id),
+      };
     // case 'UPDATE_REPOS':
   }
 };

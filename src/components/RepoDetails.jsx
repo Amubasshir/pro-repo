@@ -1,6 +1,18 @@
 import React from 'react';
+import { useReposContext } from '../hooks/useReposContext';
 
 const RepoDetails = ({ repo }) => {
+  const { dispatch } = useReposContext();
+
+  const handleDelete = async () => {
+    const res = await fetch(`http://localhost:5000/api/repos/${repo._id}`, {
+      method: 'DELETE',
+    });
+    const json = await res.json();
+    if (res.ok) {
+      dispatch({ type: 'DELETE_REPO', payload: json });
+    }
+  };
   return (
     <div className="repo flex w-[25rem] flex-col gap-5 rounded-xl border border-slate-600 bg-slate-800 p-5">
       <div className="to flex gap-5 ">
@@ -30,7 +42,10 @@ const RepoDetails = ({ repo }) => {
         <button className="rounded bg-sky-500 py-2 px-5 text-slate-100 ">
           Update
         </button>
-        <button className=" rounded border border-slate-600 py-2 px-5 duration-300 hover:border-red-600">
+        <button
+          onClick={handleDelete}
+          className=" rounded border border-slate-600 py-2 px-5 duration-300 hover:border-red-600"
+        >
           Delete
         </button>
       </div>
