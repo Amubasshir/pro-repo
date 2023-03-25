@@ -25,6 +25,18 @@ export const repoReducer = (state, action) => {
         repos: state.repos.filter((repo) => repo._id !== action.payload._id),
       };
     // case 'UPDATE_REPOS':
+    case 'UPDATE_REPO':
+      const [existingRepo] = state.repos.filter(
+        (repo) => repo._id === action.payload._id
+      );
+
+      return {
+        ...state,
+        repos: [
+          action.payload,
+          ...state.repos.filter((repo) => repo._id !== existingRepo._id),
+        ],
+      };
   }
 };
 

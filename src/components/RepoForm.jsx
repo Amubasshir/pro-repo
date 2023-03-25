@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useReposContext } from '../hooks/useReposContext';
 
-const RepoForm = () => {
-  const [title, setTitle] = useState('');
-  const [subtitle, setsubtitle] = useState('');
-  const [visibility, setVisibility] = useState('');
-  const [language, setLanguage] = useState('');
-  const [star, setStar] = useState('');
-  const [commit, setCommit] = useState('');
-  const [pr, setPr] = useState('');
+const RepoForm = ({ repo, setIsModalOpen, setIsOverlayOpen }) => {
+  const [title, setTitle] = useState(repo ? repo.title : '');
+  const [subtitle, setsubtitle] = useState(repo ? repo.subtitle : '');
+  const [visibility, setVisibility] = useState(repo ? repo.visibility : '');
+  const [language, setLanguage] = useState(repo ? repo.language : '');
+  const [star, setStar] = useState(repo ? repo.star : '');
+  const [commit, setCommit] = useState(repo ? repo.commit : '');
+  const [pr, setPr] = useState(repo ? repo.pr : '');
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
 
@@ -28,38 +28,79 @@ const RepoForm = () => {
       pr,
     };
 
-    // post request
-    const res = await fetch('http://localhost:5000/api/repos', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(repoObj),
-    });
-    const json = await res.json();
+    //  if there is no repo, send post req
+    if (!repo) {
+      // post request
+      const res = await fetch('http://localhost:5000/api/repos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(repoObj),
+      });
+      const json = await res.json();
 
-    // !res.ok set error
-    if (!res.ok) {
-      setError(json.error);
-      setEmptyFields(json.emptyFields);
+      // !res.ok set error
+      if (!res.ok) {
+        setError(json.error);
+        setEmptyFields(json.emptyFields);
+      }
+
+      // req.ok reset
+      if (res.ok) {
+        setTitle('');
+        setsubtitle('');
+        setVisibility('');
+        setLanguage('');
+        setStar('');
+        setCommit('');
+        setPr('');
+        setError(null);
+        setEmptyFields([]);
+        dispatch({ type: 'CREATE_REPO', payload: json });
+      }
+      return;
     }
 
-    // req.ok reset
-    if (res.ok) {
-      setTitle('');
-      setsubtitle('');
-      setVisibility('');
-      setLanguage('');
-      setStar('');
-      setCommit('');
-      setPr('');
-      setError(null);
-      setEmptyFields([]);
-      dispatch({ type: 'CREATE_REPO', payload: json });
+    // if there is a repo, send patch req
+    if (repo) {
+      // send patch req
+      const res = await fetch(`http://localhost:5000/api/repos/${repo._id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(repoObj),
+      });
+      const json = await res.json();
+
+      // !res.ok
+      if (!res.ok) {
+        setError(json.error);
+        setEmptyFields(json.emptyFields);
+      }
+
+      // res.ok
+      if (res.ok) {
+        setError(null);
+        setEmptyFields([]);
+
+        // dispatch
+        dispatch({ type: 'UPDATE_REPO', payload: json });
+
+        // close overlay and modal
+        setIsModalOpen(false);
+        setIsOverlayOpen(false);
+      }
+      return;
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="repo-form flex flex-col gap-3 ">
-      <h2 className="mb-1 text-4xl font-medium text-sky-400">Ad project</h2>
+      <h2
+        className={`mb-1 text-4xl font-medium text-sky-400 ${
+          repo ? 'hidden' : ''
+        } `}
+      >
+        Add Repository
+      </h2>
       <div className="form-control flex flex-col gap-2">
         <label
           className="cursor-pointer duration-300 hover:text-sky-400"
@@ -203,7 +244,7 @@ const RepoForm = () => {
         type="submit"
         className="rounded-lg bg-sky-400 py-3 text-lg font-medium text-slate-900 duration-300 hover:bg-sky-100 "
       >
-        Add Repo
+        {repo ? 'Confirm Update' : 'Add Repo'}
       </button>
       {error && (
         <p className="mb-2 rounded-md border border-red-500 py-2 px-4 text-red-500">
