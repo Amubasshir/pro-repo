@@ -1,28 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import RepoDetails from '../components/RepoDetails';
 import RepoForm from '../components/RepoForm';
+import { useReposContext } from '../hooks/useReposContext';
 
 const Home = () => {
-  const [repos, setRepos] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const { repos, dispatch } = useReposContext();
 
   useEffect(() => {
-    const getRepos = async (req, res) => {
-      try {
-        setLoading(true);
-        const res = await fetch('http://localhost:5000/api/repos');
-        if (!res.ok) throw new Error('something went wrong');
-        const data = await res.json();
-        setRepos(data);
-        setLoading(false);
-      } catch (err) {
-        setError(err.message);
-        setLoading(false);
+    const getAllRepos = async () => {
+      const res = await fetch('http://localhost:5000/api/repos');
+      const json = await res.json();
+
+      if (res.ok) {
+        dispatch({ type: 'SET_REPOS', payload: json });
       }
     };
-    getRepos();
-  }, []);
+    getAllRepos();
+  }, [dispatch]);
   return (
     <div className="home container mx-auto grid min-h-fit  grid-cols-3 gap-8 py-5 ">
       <div className="left col-span-2">

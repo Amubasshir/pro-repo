@@ -1,17 +1,19 @@
 import { createContext, useReducer } from 'react';
 
 const initialState = {
-  repos: null,
+  repos: [],
 };
 
 export const repoReducer = (state, action) => {
   switch (action.type) {
-    case 'GET_REPOS':
+    case 'SET_REPOS':
       return {
+        ...state,
         repos: action.payload,
       };
     case 'CREATE_REPO':
       return {
+        ...state,
         repos: [action.payload, ...state.repos],
       };
     default:

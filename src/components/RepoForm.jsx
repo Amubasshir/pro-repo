@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useReposContext } from '../hooks/useReposContext';
 
 const RepoForm = () => {
   const [title, setTitle] = useState('');
@@ -10,11 +11,13 @@ const RepoForm = () => {
   const [pr, setPr] = useState('');
   const [error, setError] = useState(null);
 
+  const { dispatch } = useReposContext();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // data
-    const repo = {
+    const repoObj = {
       title,
       subtitle,
       visibility,
@@ -28,7 +31,7 @@ const RepoForm = () => {
     const res = await fetch('http://localhost:5000/api/repos', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(repo),
+      body: JSON.stringify(repoObj),
     });
     const json = await res.json();
 
@@ -47,7 +50,7 @@ const RepoForm = () => {
       setCommit('');
       setPr('');
       setError(null);
-      console.log('new repo added to the database', json);
+      dispatch({ type: 'CREATE_REPO', payload: json });
     }
   };
 
