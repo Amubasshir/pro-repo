@@ -1,6 +1,6 @@
+import moment from 'moment';
 import React from 'react';
 import { useReposContext } from '../hooks/useReposContext';
-
 const RepoDetails = ({ repo }) => {
   const { dispatch } = useReposContext();
 
@@ -14,7 +14,7 @@ const RepoDetails = ({ repo }) => {
     }
   };
   return (
-    <div className="repo flex w-[25rem] flex-col gap-5 rounded-xl border border-slate-600 bg-slate-800 p-5">
+    <div className="repo flex w-[28rem] flex-col gap-5 rounded-xl border border-slate-600 bg-slate-800 p-5">
       <div className="to flex gap-5 ">
         <h3 className="  text-3xl font-medium text-sky-400">{repo.title}</h3>
         <span className="rounded-full border border-slate-600 py-2 px-3 text-sm font-medium tracking-wider text-slate-500 shadow-md">
@@ -26,10 +26,16 @@ const RepoDetails = ({ repo }) => {
       </div>
       <div className="mid-two flex gap-10 text-slate-300">
         <div className="left flex flex-col">
-          <span>Stack:{repo.language}</span>
-          <span>Added on:{new Date(repo.createdAt).toLocaleDateString()}</span>
           <span>
-            Last updated:{new Date(repo.updatedAt).toLocaleDateString()}
+            Stack <span className="text-blue-400">:</span> {repo.language}
+          </span>
+          <span>
+            Added <span className="text-blue-400">:</span>{' '}
+            {moment(repo.createdAt).format('DD MMM, hh:mm A')}
+          </span>
+          <span>
+            Updated <span className="text-blue-400">:</span>{' '}
+            {moment(repo.updatedAt).format('DD MMM, hh:mm A')}
           </span>
         </div>
         <div className="right flex flex-col">

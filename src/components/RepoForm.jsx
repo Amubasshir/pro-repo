@@ -10,6 +10,7 @@ const RepoForm = () => {
   const [commit, setCommit] = useState('');
   const [pr, setPr] = useState('');
   const [error, setError] = useState(null);
+  const [emptyFields, setEmptyFields] = useState([]);
 
   const { dispatch } = useReposContext();
 
@@ -38,6 +39,7 @@ const RepoForm = () => {
     // !res.ok set error
     if (!res.ok) {
       setError(json.error);
+      setEmptyFields(json.emptyFields);
     }
 
     // req.ok reset
@@ -50,6 +52,7 @@ const RepoForm = () => {
       setCommit('');
       setPr('');
       setError(null);
+      setEmptyFields([]);
       dispatch({ type: 'CREATE_REPO', payload: json });
     }
   };
@@ -70,7 +73,11 @@ const RepoForm = () => {
           type="text"
           placeholder="e.g. e-commerce website"
           id="Repo title"
-          className="rounded-lg border border-slate-600 bg-transparent py-2 px-4 text-xs outline-none duration-300 focus:border-sky-400 "
+          className={`rounded-lg border  bg-transparent py-2 px-5 outline-none duration-300 focus:border-sky-400 ${
+            emptyFields?.includes('title')
+              ? 'border-red-500'
+              : 'border-slate-600'
+          }`}
         />
       </div>
       <div className="form-control flex flex-col gap-2">
@@ -83,7 +90,11 @@ const RepoForm = () => {
         <input
           value={subtitle}
           onChange={(e) => setsubtitle(e.target.value)}
-          className="rounded-lg border border-slate-600 bg-transparent py-2 px-4 text-xs outline-none duration-300 focus:border-sky-400 "
+          className={`rounded-lg border  bg-transparent py-2 px-5 outline-none duration-300 focus:border-sky-400 ${
+            emptyFields?.includes('subtitle')
+              ? 'border-red-500'
+              : 'border-slate-600'
+          }`}
           type="text"
           placeholder="e.g. a e-commerce website site that serve the millennium"
           id="Repo short description"
@@ -99,7 +110,11 @@ const RepoForm = () => {
         <input
           value={visibility}
           onChange={(e) => setVisibility(e.target.value)}
-          className="rounded-lg border border-slate-600 bg-transparent py-2 px-4 text-xs outline-none duration-300 focus:border-sky-400 "
+          className={`rounded-lg border  bg-transparent py-2 px-5 outline-none duration-300 focus:border-sky-400 ${
+            emptyFields?.includes('visibility')
+              ? 'border-red-500'
+              : 'border-slate-600'
+          }`}
           type="text"
           placeholder="e.g. public/private"
           id="Repo visibility"
@@ -115,7 +130,11 @@ const RepoForm = () => {
         <input
           value={language}
           onChange={(e) => setLanguage(e.target.value)}
-          className="rounded-lg border border-slate-600 bg-transparent py-2 px-4 text-xs outline-none duration-300 focus:border-sky-400 "
+          className={`rounded-lg border  bg-transparent py-2 px-5 outline-none duration-300 focus:border-sky-400 ${
+            emptyFields?.includes('language')
+              ? 'border-red-500'
+              : 'border-slate-600'
+          }`}
           type="text"
           placeholder="e.g. MERN,MEAN, T3,PERN "
           id="Repo stack"
@@ -131,7 +150,11 @@ const RepoForm = () => {
         <input
           value={star}
           onChange={(e) => setStar(e.target.value)}
-          className="rounded-lg border border-slate-600 bg-transparent py-2 px-4 text-xs outline-none duration-300 focus:border-sky-400 "
+          className={`rounded-lg border  bg-transparent py-2 px-5 outline-none duration-300 focus:border-sky-400 ${
+            emptyFields?.includes('star')
+              ? 'border-red-500'
+              : 'border-slate-600'
+          }`}
           type="number"
           placeholder="e.g. ..."
           id="Repo star"
@@ -147,7 +170,11 @@ const RepoForm = () => {
         <input
           value={commit}
           onChange={(e) => setCommit(e.target.value)}
-          className="rounded-lg border border-slate-600 bg-transparent py-2 px-4 text-xs outline-none duration-300 focus:border-sky-400 "
+          className={`rounded-lg border  bg-transparent py-2 px-5 outline-none duration-300 focus:border-sky-400 ${
+            emptyFields?.includes('commit')
+              ? 'border-red-500'
+              : 'border-slate-600'
+          }`}
           type="number"
           placeholder="e.g. ..."
           id="Repo commit"
@@ -163,7 +190,10 @@ const RepoForm = () => {
         <input
           value={pr}
           onChange={(e) => setPr(e.target.value)}
-          className="rounded-lg border border-slate-600 bg-transparent py-2 px-4 text-xs outline-none duration-300 focus:border-sky-400 "
+          c
+          className={`rounded-lg border  bg-transparent py-2 px-5 outline-none duration-300 focus:border-sky-400 ${
+            emptyFields?.includes('pr') ? 'border-red-500' : 'border-slate-600'
+          }`}
           type="number"
           placeholder="e.g. ..."
           id="Repo PR"
