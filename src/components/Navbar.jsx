@@ -7,6 +7,14 @@ const Navbar = () => {
       <Link className="logo pl-5 text-2xl font-medium text-sky-400 ">
         ProRipo
       </Link>
+      <nav className="flex gap-5">
+        <Link to="/login" className="duration-300 hover:text-sky-400">
+          Login
+        </Link>
+        <Link to="/signup" className="duration-300 hover:text-sky-400">
+          Signup
+        </Link>
+      </nav>
     </div>
   );
 };

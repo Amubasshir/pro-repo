@@ -1,14 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import { RepoContextProvider } from '../src/context/RepoContext';
 import App from './App';
+import { AuthContextProvider } from './context/AuthContext';
+import { RepoContextProvider } from './context/RepoContext';
 import './index.css';
-ReactDOM.createRoot(document.getElementById('root')).render(
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
   <React.StrictMode>
     <BrowserRouter>
       <RepoContextProvider>
-        <App />
+        <AuthContextProvider>
+          <App />
+        </AuthContextProvider>
       </RepoContextProvider>
     </BrowserRouter>
   </React.StrictMode>
