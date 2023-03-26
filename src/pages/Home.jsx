@@ -18,12 +18,12 @@ const Home = () => {
     getAllRepos();
   }, [dispatch]);
   return (
-    <div className="home container mx-auto grid min-h-fit  grid-cols-3 gap-8 py-5 ">
-      <div className="left col-span-2">
-        <h2 className="mb-10 text-4xl font-medium text-sky-400">
+    <div className="home container mx-auto grid min-h-fit  grid-cols-3 gap-x-3 px-5 py-10 ">
+      <div className="left col-span-2 ">
+        <h2 className="mb-10 text-3xl font-medium text-sky-400">
           All Repository
         </h2>
-        <div className="repos-wrapper flex flex-wrap gap-10">
+        <div className="repos-wrapper flex flex-wrap gap-5">
           {repos &&
             repos.map((repo) => <RepoDetails key={repo._id} repo={repo} />)}
         </div>

@@ -93,9 +93,9 @@ const RepoForm = ({ repo, setIsModalOpen, setIsOverlayOpen }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="repo-form flex flex-col gap-3 ">
+    <form onSubmit={handleSubmit} className="repo-form flex flex-col gap-1 ">
       <h2
-        className={`mb-1 text-4xl font-medium text-sky-400 ${
+        className={`mb-5 text-3xl font-medium text-sky-400 ${
           repo ? 'hidden' : ''
         } `}
       >
@@ -242,7 +242,7 @@ const RepoForm = ({ repo, setIsModalOpen, setIsOverlayOpen }) => {
       </div>
       <button
         type="submit"
-        className="rounded-lg bg-sky-400 py-3 text-lg font-medium text-slate-900 duration-300 hover:bg-sky-100 "
+        className="mt-2 rounded-lg bg-sky-400 py-3 text-xl  font-medium tracking-wider text-slate-800 duration-300 hover:bg-sky-700   hover:text-slate-100 "
       >
         {repo ? 'Confirm Update' : 'Add Repo'}
       </button>

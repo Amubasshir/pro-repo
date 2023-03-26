@@ -28,25 +28,25 @@ const RepoDetails = ({ repo }) => {
   };
 
   return (
-    <div className="repo flex w-[26rem] flex-col gap-5 rounded-xl border border-slate-600 bg-slate-800 p-5">
+    <div className="repo flex w-[24rem] flex-col gap-5 rounded-xl border border-slate-600 bg-slate-800 p-5">
       <div className="to flex items-center  ">
         <svg
           aria-hidden="true"
-          height="26"
+          height="20"
           viewBox="0 0 16 16"
           version="1.1"
-          width="26"
+          width="20"
           data-view-component="true"
           class="octicon octicon-repo mr-1 fill-current text-slate-500 "
         >
           <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.249.249 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"></path>
         </svg>
-        <h3 className="  text-3xl font-medium text-sky-400">{repo.title}</h3>
-        <span className="ml-5 rounded-full border border-slate-600 py-1 px-4 text-xs font-medium tracking-wider text-slate-500 shadow-md">
+        <h3 className="  text-xl font-medium text-sky-400">{repo.title}</h3>
+        <span className="ml-5 rounded-full border border-slate-600 py-1 px-4 text-xs font-medium tracking-wider text-slate-500 shadow-md duration-300 hover:border-slate-300 hover:text-slate-300">
           {repo.visibility}
         </span>
       </div>
-      <div className="mid-one  truncate text-slate-100">
+      <div className="mid-one truncate text-sm text-slate-100">
         <p>{repo.subtitle}</p>
       </div>
       <div className="mid-two flex gap-10 text-slate-300">
@@ -113,13 +113,13 @@ const RepoDetails = ({ repo }) => {
       <div className="bottom flex gap-10">
         <button
           onClick={handleUpdate}
-          className="rounded bg-sky-500 py-2 px-5 text-lg font-medium text-slate-800 duration-300 hover:bg-sky-700 hover:text-slate-100 "
+          className="rounded bg-sky-500 py-1  px-5 text-base font-medium text-slate-800 duration-300 hover:bg-sky-700 hover:text-slate-100 "
         >
           Update
         </button>
         <button
           onClick={handleDelete}
-          className=" rounded border border-slate-600 py-2 px-5 text-lg font-medium duration-300 hover:border-red-600 hover:text-red-500"
+          className=" rounded border border-slate-600 py-1 px-5 text-lg font-medium duration-300 hover:border-red-600 hover:text-red-500"
         >
           Delete
         </button>
@@ -146,163 +146,6 @@ const RepoDetails = ({ repo }) => {
           setIsModalOpen={setIsModalOpen}
           setIsOverlayOpen={setIsOverlayOpen}
         />
-        {/* <form
-          onSubmit={handleSubmit}
-          className="repo-form flex flex-col gap-3 "
-        >
-          <div className="form-control flex flex-col gap-2">
-            <label
-              className="cursor-pointer duration-300 hover:text-sky-400"
-              htmlFor="Repo title"
-            >
-              Repo title
-            </label>
-            <input
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              type="text"
-              placeholder="e.g. e-commerce website"
-              id="Repo title"
-              className={`rounded-lg border  bg-transparent py-2 px-5 outline-none duration-300 focus:border-sky-400 ${
-                emptyFields?.includes('title')
-                  ? 'border-red-500'
-                  : 'border-slate-600'
-              }`}
-            />
-          </div>
-          <div className="form-control flex flex-col gap-2">
-            <label
-              className="cursor-pointer duration-300 hover:text-sky-400"
-              htmlFor="Repo short description"
-            >
-              Repo short description
-            </label>
-            <input
-              value={subtitle}
-              onChange={(e) => setsubtitle(e.target.value)}
-              className={`rounded-lg border  bg-transparent py-2 px-5 outline-none duration-300 focus:border-sky-400 ${
-                emptyFields?.includes('subtitle')
-                  ? 'border-red-500'
-                  : 'border-slate-600'
-              }`}
-              type="text"
-              placeholder="e.g. a e-commerce website site that serve the millennium"
-              id="Repo short description"
-            />
-          </div>
-          <div className="form-control flex flex-col gap-2">
-            <label
-              className="cursor-pointer duration-300 hover:text-sky-400"
-              htmlFor="Repo visibility"
-            >
-              Repo visibility
-            </label>
-            <input
-              value={visibility}
-              onChange={(e) => setVisibility(e.target.value)}
-              className={`rounded-lg border  bg-transparent py-2 px-5 outline-none duration-300 focus:border-sky-400 ${
-                emptyFields?.includes('visibility')
-                  ? 'border-red-500'
-                  : 'border-slate-600'
-              }`}
-              type="text"
-              placeholder="e.g. public/private"
-              id="Repo visibility"
-            />
-          </div>
-          <div className="form-control flex flex-col gap-2">
-            <label
-              className="cursor-pointer duration-300 hover:text-sky-400"
-              htmlFor="Repo stack"
-            >
-              Repo stack
-            </label>
-            <input
-              value={language}
-              onChange={(e) => setLanguage(e.target.value)}
-              className={`rounded-lg border  bg-transparent py-2 px-5 outline-none duration-300 focus:border-sky-400 ${
-                emptyFields?.includes('language')
-                  ? 'border-red-500'
-                  : 'border-slate-600'
-              }`}
-              type="text"
-              placeholder="e.g. MERN,MEAN, T3,PERN "
-              id="Repo stack"
-            />
-          </div>
-          <div className="form-control flex flex-col gap-2">
-            <label
-              className="cursor-pointer duration-300 hover:text-sky-400"
-              htmlFor="Repo star"
-            >
-              Repo star
-            </label>
-            <input
-              value={star}
-              onChange={(e) => setStar(e.target.value)}
-              className={`rounded-lg border  bg-transparent py-2 px-5 outline-none duration-300 focus:border-sky-400 ${
-                emptyFields?.includes('star')
-                  ? 'border-red-500'
-                  : 'border-slate-600'
-              }`}
-              type="number"
-              placeholder="e.g. ..."
-              id="Repo star"
-            />
-          </div>
-          <div className="form-control flex flex-col gap-2">
-            <label
-              className="cursor-pointer duration-300 hover:text-sky-400"
-              htmlFor="Repo commit"
-            >
-              Repo commit
-            </label>
-            <input
-              value={commit}
-              onChange={(e) => setCommit(e.target.value)}
-              className={`rounded-lg border  bg-transparent py-2 px-5 outline-none duration-300 focus:border-sky-400 ${
-                emptyFields?.includes('commit')
-                  ? 'border-red-500'
-                  : 'border-slate-600'
-              }`}
-              type="number"
-              placeholder="e.g. ..."
-              id="Repo commit"
-            />
-          </div>
-          <div className="form-control flex flex-col gap-2">
-            <label
-              className="cursor-pointer duration-300 hover:text-sky-400"
-              htmlFor="Repo PR"
-            >
-              Repo PR
-            </label>
-            <input
-              value={pr}
-              onChange={(e) => setPr(e.target.value)}
-              c
-              className={`rounded-lg border  bg-transparent py-2 px-5 outline-none duration-300 focus:border-sky-400 ${
-                emptyFields?.includes('pr')
-                  ? 'border-red-500'
-                  : 'border-slate-600'
-              }`}
-              type="number"
-              placeholder="e.g. ..."
-              id="Repo PR"
-            />
-          </div>
-          <button
-            type="submit"
-            className="rounded-lg bg-sky-400 py-3 text-lg font-medium text-slate-900 duration-300 hover:bg-sky-100 "
-          >
-            Add Repo
-          </button>
-          {error && (
-            <p className="mb-2 rounded-md border border-red-500 py-2 px-4 text-red-500">
-              {error}
-            </p>
-          )}
-        </form> */}
       </div>
     </div>
   );
