@@ -1,15 +1,24 @@
 import moment from 'moment';
 import React, { useState } from 'react';
+import { useAuthContext } from '../hooks/useAuthContext';
 import { useReposContext } from '../hooks/useReposContext';
 import RepoForm from './RepoForm';
 const RepoDetails = ({ repo }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
   const { dispatch } = useReposContext();
+  const { user } = useAuthContext();
 
   const handleDelete = async () => {
+    if (!user) {
+      return;
+    }
+
     const res = await fetch(`http://localhost:5000/api/repos/${repo._id}`, {
       method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
     });
     const json = await res.json();
     if (res.ok) {

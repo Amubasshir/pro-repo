@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAuthContext } from '../hooks/useAuthContext';
 import { useReposContext } from '../hooks/useReposContext';
 
 const RepoForm = ({ repo, setIsModalOpen, setIsOverlayOpen }) => {
@@ -13,9 +14,15 @@ const RepoForm = ({ repo, setIsModalOpen, setIsOverlayOpen }) => {
   const [emptyFields, setEmptyFields] = useState([]);
 
   const { dispatch } = useReposContext();
+  const { user } = useAuthContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!user) {
+      setError('You must be logged in to view this!!!');
+      return;
+    }
 
     // data
     const repoObj = {
@@ -33,7 +40,10 @@ const RepoForm = ({ repo, setIsModalOpen, setIsOverlayOpen }) => {
       // post request
       const res = await fetch('http://localhost:5000/api/repos', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.token}`,
+        },
         body: JSON.stringify(repoObj),
       });
       const json = await res.json();
@@ -65,7 +75,10 @@ const RepoForm = ({ repo, setIsModalOpen, setIsOverlayOpen }) => {
       // send patch req
       const res = await fetch(`http://localhost:5000/api/repos/${repo._id}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.token}`,
+        },
         body: JSON.stringify(repoObj),
       });
       const json = await res.json();
