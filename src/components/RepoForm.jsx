@@ -38,7 +38,7 @@ const RepoForm = ({ repo, setIsModalOpen, setIsOverlayOpen }) => {
     //  if there is no repo, send post req
     if (!repo) {
       // post request
-      const res = await fetch('http://localhost:5000/api/repos', {
+      const res = await fetch(`${process.env.REACT_APP_BASE_URL}/api/repos`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -73,14 +73,17 @@ const RepoForm = ({ repo, setIsModalOpen, setIsOverlayOpen }) => {
     // if there is a repo, send patch req
     if (repo) {
       // send patch req
-      const res = await fetch(`http://localhost:5000/api/repos/${repo._id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${user.token}`,
-        },
-        body: JSON.stringify(repoObj),
-      });
+      const res = await fetch(
+        `${process.env.REACT_APP_BASE_URL}/api/repos/${repo._id}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${user.token}`,
+          },
+          body: JSON.stringify(repoObj),
+        }
+      );
       const json = await res.json();
 
       // !res.ok

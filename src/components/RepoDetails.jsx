@@ -14,12 +14,15 @@ const RepoDetails = ({ repo }) => {
       return;
     }
 
-    const res = await fetch(`http://localhost:5000/api/repos/${repo._id}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    const res = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/api/repos/${repo._id}`,
+      {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
     const json = await res.json();
     if (res.ok) {
       dispatch({ type: 'DELETE_REPO', payload: json });

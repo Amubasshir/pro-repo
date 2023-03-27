@@ -9,7 +9,7 @@ const Home = () => {
 
   useEffect(() => {
     const getAllRepos = async () => {
-      const res = await fetch('http://localhost:5000/api/repos', {
+      const res = await fetch(`${process.env.REACT_APP_BASE_URL}/api/repos`, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       const json = await res.json();
