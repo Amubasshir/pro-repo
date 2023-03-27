@@ -20,7 +20,7 @@ const Login = () => {
           id="email"
           placeholder="e.g. name@gmail.com"
           value={email}
-          onchange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           className="rounded-xl border border-slate-400 bg-transparent py-4 px-5 outline-none focus:border-sky-400"
         />
       </div>
@@ -36,7 +36,7 @@ const Login = () => {
           id="password"
           placeholder="Enter your password"
           value={password}
-          onchange={(e) => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
           className="rounded-xl border border-slate-400 bg-transparent py-4 px-5 outline-none focus:border-sky-400"
         />
       </div>

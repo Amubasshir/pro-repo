@@ -1,10 +1,23 @@
 import React, { useState } from 'react';
+import { useSignup } from '../hooks/useSignup';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { signup, loading, error } = useSignup();
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+
+    // signup user
+    await signup(email, password);
+  };
+
   return (
-    <form className="signup-form mx-auto flex max-w-sm flex-col gap-5 py-16">
+    <form
+      onSubmit={handleSignup}
+      className="signup-form mx-auto flex max-w-sm flex-col gap-5 py-16"
+    >
       <h2 className="mb-10 text-center text-5xl font-medium text-sky-400">
         Sign up
       </h2>
@@ -20,7 +33,7 @@ const Signup = () => {
           id="email"
           placeholder="e.g. name@gmail.com"
           value={email}
-          onchange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           className="rounded-xl border border-slate-400 bg-transparent py-4 px-5 outline-none focus:border-sky-400"
         />
       </div>
@@ -36,11 +49,12 @@ const Signup = () => {
           id="password"
           placeholder="Enter your password"
           value={password}
-          onchange={(e) => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
           className="rounded-xl border border-slate-400 bg-transparent py-4 px-5 outline-none focus:border-sky-400"
         />
       </div>
       <button
+        disabled={loading}
         type="submit"
         className="delay-50 mt-3 inline-flex items-center justify-center rounded-xl bg-sky-400 py-3 text-lg font-medium tracking-wide text-slate-900 transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 "
       >
@@ -81,6 +95,11 @@ const Signup = () => {
           </g>
         </svg>
       </button>
+      {error && (
+        <p className="mb-2 rounded-md border border-red-500 py-2 px-4 text-red-500">
+          {error}
+        </p>
+      )}
     </form>
   );
 };
