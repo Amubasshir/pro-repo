@@ -35,7 +35,9 @@ const Home = () => {
             repos.map((repo) => <RepoDetails key={repo._id} repo={repo} />)}
         </div>
       </div>
-      <RepoForm />
+      <div>
+        <RepoForm />
+      </div>
     </div>
   );
 };
