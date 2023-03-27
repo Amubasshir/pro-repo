@@ -38,7 +38,7 @@ const RepoForm = ({ repo, setIsModalOpen, setIsOverlayOpen }) => {
     //  if there is no repo, send post req
     if (!repo) {
       // post request
-      const res = await fetch(`${process.env.REACT_APP_BASE_URL}/api/repos`, {
+      const res = await fetch(`${import.meta.env.VITE_BASE_URL}/api/repos`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -74,7 +74,7 @@ const RepoForm = ({ repo, setIsModalOpen, setIsOverlayOpen }) => {
     if (repo) {
       // send patch req
       const res = await fetch(
-        `${process.env.REACT_APP_BASE_URL}/api/repos/${repo._id}`,
+        `${import.meta.env.VITE_BASE_URL}/api/repos/${repo._id}`,
         {
           method: 'PATCH',
           headers: {
@@ -213,7 +213,7 @@ const RepoForm = ({ repo, setIsModalOpen, setIsOverlayOpen }) => {
               : 'border-slate-600'
           }`}
           type="number"
-          placeholder="e.g. ..."
+          placeholder="e.g. 17"
           id="Repo star"
         />
       </div>
@@ -233,7 +233,7 @@ const RepoForm = ({ repo, setIsModalOpen, setIsOverlayOpen }) => {
               : 'border-slate-600'
           }`}
           type="number"
-          placeholder="e.g. ..."
+          placeholder="e.g. 77"
           id="Repo commit"
         />
       </div>
@@ -252,7 +252,7 @@ const RepoForm = ({ repo, setIsModalOpen, setIsOverlayOpen }) => {
             emptyFields?.includes('pr') ? 'border-red-500' : 'border-slate-600'
           }`}
           type="number"
-          placeholder="e.g. ..."
+          placeholder="e.g. 91"
           id="Repo PR"
         />
       </div>

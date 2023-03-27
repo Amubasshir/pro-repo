@@ -12,7 +12,7 @@ export const useSignup = () => {
     setError(null);
 
     const res = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/api/user/signup`,
+      `${import.meta.env.VITE_BASE_URL}/api/user/signup`,
       {
         method: 'POST',
         headers: {

@@ -15,7 +15,7 @@ const RepoDetails = ({ repo }) => {
     }
 
     const res = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/api/repos/${repo._id}`,
+      `${import.meta.env.VITE_BASE_URL}/api/repos/${repo._id}`,
       {
         method: 'DELETE',
         headers: {

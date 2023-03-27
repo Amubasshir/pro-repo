@@ -12,7 +12,8 @@ export const useLogin = () => {
     setError(null);
 
     const res = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/api/user/login`,
+      `${import.meta.env.VITE_BASE_URL}/api/user/login`,
+
       {
         method: 'POST',
         headers: {

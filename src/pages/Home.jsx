@@ -9,7 +9,7 @@ const Home = () => {
 
   useEffect(() => {
     const getAllRepos = async () => {
-      const res = await fetch(`${process.env.REACT_APP_BASE_URL}/api/repos`, {
+      const res = await fetch(`${import.meta.env.VITE_BASE_URL}/api/repos`, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       const json = await res.json();
@@ -26,7 +26,7 @@ const Home = () => {
     <div className="home container mx-auto grid min-h-fit  grid-cols-3 gap-x-3 px-5 py-10 ">
       <div className="left col-span-2 ">
         <h2 className="mb-10 text-3xl font-medium text-sky-400">
-          {repos.length < 1
+          {repos?.length < 1
             ? 'No Repositories, please add some'
             : 'All Repository'}
         </h2>
