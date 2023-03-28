@@ -52,7 +52,7 @@ const Navbar = () => {
                   />
                 </svg>
               </span>
-              <span className="-ml-4">{user.email.slice(0, 3)}</span>
+              <span className="-ml-4">{user.name}</span>
               <button
                 onClick={handleLogout}
                 type="submit"

@@ -16,7 +16,7 @@ const Login = () => {
   return (
     <form
       onSubmit={handleLogin}
-      className="login-form mx-auto flex max-w-sm flex-col gap-5 py-16"
+      className="login-form mx-auto flex min-h-screen max-w-sm flex-col gap-5 py-16"
     >
       <h2 className="mb-10 text-center text-5xl font-medium text-sky-400">
         Login

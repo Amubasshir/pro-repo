@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSignup } from '../hooks/useSignup';
 
 const Signup = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { signup, loading, error } = useSignup();
@@ -10,17 +11,33 @@ const Signup = () => {
     e.preventDefault();
 
     // signup user
-    await signup(email, password);
+    await signup(name, email, password);
   };
 
   return (
     <form
       onSubmit={handleSignup}
-      className="signup-form mx-auto flex max-w-sm flex-col gap-5 py-16"
+      className="signup-form mx-auto flex min-h-screen max-w-sm flex-col gap-5 py-16"
     >
       <h2 className="mb-10 text-center text-5xl font-medium text-sky-400">
         Sign up
       </h2>
+      <div className="form-control flex flex-col gap-2">
+        <label
+          htmlFor="name"
+          className="cursor-pointer duration-300 hover:text-sky-400"
+        >
+          Name
+        </label>
+        <input
+          type="name"
+          id="name"
+          placeholder="enter your name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="rounded-xl border border-slate-400 bg-transparent py-4 px-5 outline-none focus:border-sky-400"
+        />
+      </div>
       <div className="form-control flex flex-col gap-2">
         <label
           htmlFor="email"
