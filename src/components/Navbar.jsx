@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import logOut from '../../public/logOut.png';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useLogout } from '../hooks/useLogout';
 const Navbar = () => {
@@ -53,13 +54,12 @@ const Navbar = () => {
                 </svg>
               </span>
               <span className="-ml-4">{user.name}</span>
-              <button
+              <img
+                src={logOut}
+                alt="Logout"
+                className="h-16 w-16 cursor-pointer hover:opacity-75"
                 onClick={handleLogout}
-                type="submit"
-                className="mt-2 rounded-lg bg-red-500 py-2 px-5 text-xl  font-medium tracking-wider text-white duration-300 hover:bg-red-700   hover:text-slate-900 "
-              >
-                Logout
-              </button>
+              />
             </div>
           )}
         </nav>
